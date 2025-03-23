@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 import time
 import pandas as pd
 import openpyxl
+import requests
+
 
 service = Service("C:\Windows\System32\chromedriver-win64\chromedriver.exe")
 driver = webdriver.Chrome(service=service)  # , options=chrome_options)
@@ -36,18 +38,44 @@ for _ in range(5):
 html = driver.page_source
 soup = BeautifulSoup(html, "lxml")
 
-headlines = []
 
-for h3 in soup.find_all("h3"):
-    text = h3.text.strip()
-    if text:
-        print(text)
-        headlines.append(text)
+articles_data = []
 
-df = pd.DataFrame(headlines, columns=["Überschrift"])
+for block in soup.find_all("article"):
+    headline = block.find("h3")
+    teaser = block.find("p") or block.find("h4")
+    link = block.find("a", href=True)
+
+    if headline and link:
+        headline_text = headline.text.strip()
+        teaser_text = teaser.text.strip() if teaser else ""
+        article_url = "https://www.tagesanzeiger.ch" + link["href"]
+
+        print(headline_text)
+        print(teaser_text)
+        print(article_url)
+
+
+        try:
+            response = requests.get(article_url)
+            article_soup = BeautifulSoup(response.text, "lxml")
+            time_tag = article_soup.find("time")
+            article_timestamp = time_tag.text.strip() if time_tag else "Unbekannt"
+            print(article_timestamp)
+        except:
+            article_timestamp = "Fehler beim Abrufen der Zeit"
+
+        # Add to data
+        articles_data.append({
+            "Header": headline_text,
+            "Teaser": teaser_text,
+            "Link": article_url,
+            "Zeit": article_timestamp
+        })
 
 # In Excel speichern
+df = pd.DataFrame(articles_data)
 df.to_excel(r"C:\Users\Kavita\OneDrive\CIP\Webscraping\Tagesanzeiger\Sunday.xlsx", index=False)
-print("📄 Schlagzeilen wurden in 'schlagzeilen.xlsx' gespeichert.")
+
 
 driver.quit()
