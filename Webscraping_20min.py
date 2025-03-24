@@ -95,7 +95,7 @@ if not articles_data:
     print("❌ Keine Artikel gefunden. Excel-Datei wurde nicht erstellt.")
 else:
     df = pd.DataFrame(articles_data)
-    path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\20min\20minMondayLunch.xlsx"
+    path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\20min\20minMondayPM.xlsx"
     df.to_excel(path, index=False)
     print(f"✅ Excel-Datei gespeichert unter: {path}")
 
