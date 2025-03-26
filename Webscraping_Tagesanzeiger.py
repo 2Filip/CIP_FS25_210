@@ -80,7 +80,7 @@ for block in soup.find_all("article"):
 
 
 df = pd.DataFrame(articles_data)
-output_path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\Tagesanzeiger\MondayPM.xlsx"
+output_path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\Tagesanzeiger\WednesayLunch.xlsx"
 df.to_excel(output_path, index=False)
 
 
