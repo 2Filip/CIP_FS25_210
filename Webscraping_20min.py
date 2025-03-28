@@ -110,7 +110,7 @@ else:
     df["Zeit_Parsed"] = df["Zeit"].apply(parse_time)
 
     # Save to Excel
-    path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\20min\20minThursdayLunch.xlsx"
+    path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\20min\20minFridayLunch.xlsx"
     df.to_excel(path, index=False)
     print(f"✅ Excel-Datei gespeichert unter: {path}")
 
