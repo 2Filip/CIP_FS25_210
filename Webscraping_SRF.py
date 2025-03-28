@@ -65,7 +65,7 @@ for teaser in teasers:
 
 if articles_data:
     df = pd.DataFrame(articles_data)
-    output_path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\SRF\SRFFridayLunch.xlsx"
+    output_path = r"C:\Users\Kavita\OneDrive\CIP\Webscraping\SRF\SRFFridayPM.xlsx"
     df.to_excel(output_path, index=False)
     print(f"✅ Excel-Datei gespeichert: {output_path}")
 else:
