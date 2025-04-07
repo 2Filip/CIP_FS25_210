@@ -40,13 +40,13 @@ end_date = "2025-03-28"
 df_srf_filtered = df_srf[(df_srf["PubDate"] >= start_date) & (df_srf["PubDate"] <= end_date)]
 df_20min_filtered = df_20min[(df_20min["PubDate"] >= start_date) & (df_20min["PubDate"] <= end_date)]
 
-# ⏳ Round dates to daily
+# Round dates to daily
 df_combined["Date"] = df_combined["PubDate"].dt.date
 
-# 📈 Group and count articles per day per source
+# Group and count articles per day per source
 daily_counts = df_combined.groupby(["Date", "Source"]).size().unstack(fill_value=0)
 
-# 📊 Plot grouped bar chart
+# Plot grouped bar chart
 daily_counts.plot(kind="bar", stacked=True, figsize=(12, 6))
 plt.title("Number of Articles Over Time (24.03 – 28.03.2025)")
 plt.xlabel("Publication Date")

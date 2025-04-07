@@ -9,12 +9,12 @@ all_articles = []
 for filename in os.listdir(folder_path):
     if filename.startswith("nzz_teasers_") and filename.endswith("_translated.xlsx"):
         full_path = os.path.join(folder_path, filename)
-        print("📄 Processing:", filename)
+        print("Processing:", filename)
 
         # Extract scrape time from filename
         match = re.search(r"(\d{4}-\d{2}-\d{2})_(\d{2})-(\d{2})", filename)
         if not match:
-            print("⚠️ Skipping file with bad filename format:", filename)
+            print("Skipping file with bad filename format:", filename)
             continue
         date_str, hour, minute = match.groups()
         scrape_time = datetime.strptime(f"{date_str} {hour}:{minute}", "%Y-%m-%d %H:%M")
@@ -22,7 +22,7 @@ for filename in os.listdir(folder_path):
         # Load file
         df = pd.read_excel(full_path)
 
-        # ✅ Only keep English columns
+        # Only keep English columns
         cols_to_keep = {
             'title_EN': 'title',
             'teaser_EN': 'teaser',
@@ -32,7 +32,7 @@ for filename in os.listdir(folder_path):
 
         missing_cols = [col for col in cols_to_keep if col not in df.columns]
         if missing_cols:
-            print(f"⚠️ Missing expected EN columns in {filename}: {missing_cols}")
+            print(f"Missing expected EN columns in {filename}: {missing_cols}")
             continue
 
         df_clean = df[cols_to_keep.keys()].rename(columns=cols_to_keep)
@@ -53,4 +53,4 @@ final_df = final_df.drop_duplicates(subset="url")
 # Save output
 output_file = "NZZ_Cleaned_Week.xlsx"
 final_df.to_excel(output_file, index=False)
-print(f"✅ All done! Final cleaned file saved as: {output_file}")
+print(f"All done! Final cleaned file saved as: {output_file}")
