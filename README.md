@@ -1,10 +1,10 @@
 # CIP_FS25_210
 
-Webscraping & data cleaning
+Webscraping & data cleaning:
 Filip & Kavitha
 
-Translation
+Translation:
 Celine
 
-Senitmentanalysis & visualization of results
+Senitmentanalysis & visualization of results:
 Filip & Celine
